@@ -116,7 +116,7 @@ cd ecommerce-dwh
 
 ### Step 2: Update File Paths
 
-Before running the scripts, update the file paths in `proc_load_bronze.sql` to match your local directory:
+Before running the scripts, update the file paths in `scripts/bronze/proc_load_bronze.sql` to match your local directory:
 
 ```sql
 -- Change this path:
@@ -136,23 +136,23 @@ Open SQL Server Management Studio and run the following scripts **in sequence**:
 -- Creates: DataWarehouse database with bronze, silver, gold schemas
 
 -- 2. Create Bronze Layer Tables
--- Execute: scripts/ddl_bronze.sql
+-- Execute: scripts/bronze/ddl_bronze.sql
 -- Creates: All bronze layer tables
 
 -- 3. Create Silver Layer Tables
--- Execute: scripts/ddl_silver.sql
+-- Execute: scripts/silver/ddl_silver.sql
 -- Creates: All silver layer tables
 
 -- 4. Create Gold Layer Views
--- Execute: scripts/ddl_gold.sql
+-- Execute: scripts/gold/ddl_gold.sql
 -- Creates: Dimensional views (dim_customers, dim_products, fact_sales)
 
 -- 5. Create Bronze Loading Procedure
--- Execute: scripts/proc_load_bronze.sql
+-- Execute: scripts/bronze/proc_load_bronze.sql
 -- Creates: bronze.load_bronze stored procedure
 
 -- 6. Create Silver Loading Procedure
--- Execute: scripts/proc_load_silver.sql
+-- Execute: scripts/silver/proc_load_silver.sql
 -- Creates: silver.load_silver stored procedure
 ```
 
@@ -194,12 +194,18 @@ ecommerce-dwh/
 │       └── px_cat_g1v2.csv      # Product categories
 │
 ├── scripts/
-│   ├── init_db.sql              # Database and schema creation
-│   ├── ddl_bronze.sql           # Bronze layer table definitions
-│   ├── ddl_silver.sql           # Silver layer table definitions
-│   ├── ddl_gold.sql             # Gold layer view definitions
-│   ├── proc_load_bronze.sql     # Bronze ETL procedure
-│   └── proc_load_silver.sql     # Silver ETL procedure
+│   ├── bronze/                  # Bronze layer scripts
+│   │   ├── ddl_bronze.sql       # Table definitions
+│   │   └── proc_load_bronze.sql # ETL procedure
+│   │
+│   ├── silver/                  # Silver layer scripts
+│   │   ├── ddl_silver.sql       # Table definitions
+│   │   └── proc_load_silver.sql # ETL procedure
+│   │
+│   ├── gold/                    # Gold layer scripts
+│   │   └── ddl_gold.sql         # View definitions
+│   │
+│   └── init_db.sql              # Database and schema creation
 │
 └── README.md
 ```
@@ -496,6 +502,7 @@ EXEC sp_add_schedule
     @freq_type = 4,  -- Daily
     @active_start_time = 020000;  -- 2:00 AM
 ```
+
 
 ## 🙏 Acknowledgments
 
