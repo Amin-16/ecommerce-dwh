@@ -13,7 +13,6 @@ A comprehensive data warehouse solution built with SQL Server, implementing a **
 - [Data Model](#data-model)
 - [ETL Process](#etl-process)
 - [Usage](#usage)
-- [Contributing](#contributing)
 
 ## 🎯 Overview
 
